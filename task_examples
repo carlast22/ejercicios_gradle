@@ -1,0 +1,35 @@
+task hola << {
+	println 'Hola Tierra'
+}
+hola.doFirst {
+    println 'Hola Venus'
+}
+hola.doLast {
+    println 'Hola Marte'
+}
+hola << {
+    println 'Hola Júpiter'
+}
+
+task intro(dependsOn: hola) << {
+    println "Yo soy Gradle :)"
+}
+
+task mayusculas << {
+    String unString = 'cArLa SuArEz'
+    println "Original: " + unString 
+    println "Upper case: " + unString.toUpperCase()
+}
+
+task contar << {
+    4.times { print "$it " }
+}
+
+4.times { contar ->
+    task "tarea$contar" << {
+        println "Yo soy la tarea número $contar"
+    }
+}
+tarea0.dependsOn tarea2, tarea3
+
+
